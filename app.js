@@ -1,7 +1,6 @@
-const express = require('express');
-// const serverless = require('serverless-http');
-const cors = require('cors');
 require('dotenv').config();
+const express = require('express');
+const cors = require('cors');
 const uploadRouter = require('./routes/files');
 const usersRouter = require('./routes/users');
 
