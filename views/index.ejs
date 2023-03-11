@@ -1,12 +1,120 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    This is a file upload service.
+<html>
+  <head>
+    <title>File Upload Service</title>
+    <style>
+      /* Some simple styling for the page */
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+      }
+      h1 {
+        margin-top: 0;
+      }
+      h2 {
+        margin-top: 30px;
+      }
+      table {
+        border-collapse: collapse;
+        width: 100%;
+        margin-top: 20px;
+      }
+      th, td {
+        border: 1px solid black;
+        padding: 10px;
+        text-align: left;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>API Documentation for File Upload Service to any cloud service of choice</h1>
+    <p>Welcome to the API documentation for File Upload Service. This API provides access to uploading files to different storage of choice.</p>
+
+        <h2>
+            Authentication
+        </h2>
+      <p> This API uses API Key for authentication. To access the API, you will need to provide your API key in the request header.</p>
+     <p>  Endpoints
+    The following endpoints are available:</p>
+    <h2>API Endpoints</h2>
+    <table>
+      <tr>
+        <th>Endpoint</th>
+        <th>Description</th>
+        <th>Method</th>
+        <th>Content Type</th>
+        <th>Request Body</th>
+        <th>Response Body</th>
+      </tr>
+      <tr>
+        <td>/api/files/upload</td>
+        <td>Upload a file to any storage of choice between AWS, Google, Cloudinary and Local</td>
+        <td>POST</td>
+        <td>Multipart/Form-Data</td>
+        <td>{file: location of file or Binary Data}</td>
+        <td>{
+            "message": "File Uploaded Successfully",
+            "data": {
+                "ETag": tag,
+                "ServerSideEncryption": "AES256",
+                "Location": "location of file stored,
+                "key": name of file,
+                "Key": name of file,
+                "Bucket": storage name
+            }
+        }</td>
+      </tr>
+      <tr>
+        <td>/api/files/download</td>
+        <td>Download a specific file</td>
+        <td>POST</td>
+        <td>application/json</td>
+        <td>N/A</td>
+        <td>Downloaded file</td>
+      </tr>
+      <tr>
+        <td>/api/files/delete</td>
+        <td>Delete a specific file</td>
+        <td>POST</td>
+        <td>application/json</td>
+        <td>A user object in JSON format</td>
+        <td>{message: "File deleted successfully"}</td>
+      </tr>
+      <tr>
+        <td>/api/files/list</td>
+        <td>List all files in a storage</td>
+        <td>PUT</td>
+        <td>application/json</td>
+        <td>A user object in JSON format</td>
+        <td>All files in array</td>
+      </tr>
+    </table>
+
+    <h2>Request Headers</h2>
+    <p>These are the headers that the API accepts in requests:</p>
+    <table>
+      <tr>
+        <th>Header</th>
+        <th>Description</th>
+        <th>Example Value</th>
+      </tr>
+      <tr>
+        <td>API-KEY</td>
+        <td>A token used to authenticate the user</td>
+        <td>tZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c</td>
+      </tr>
+      <tr>
+        <td>Headers (when api key is not provided)</td>
+        <td>[
+            "AWS_ACCESS_KEY_ID",
+            "AWS_ACCESS_SECRET_KEY",
+            "AWS_REGION",
+            "AWS_S3_BUCKET"
+        ]</td>
+        <td>AWS_ACCESS_KEY_ID: AIGTRFGFGHHFRTYTRR</td>
+    </tr>
+</td>
+</tr>
+</table>
 </body>
 </html>
