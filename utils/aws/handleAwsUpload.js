@@ -14,6 +14,10 @@ const handleAWSUpload = ({
     region: awsRegion,
   });
 
+  console.log("aws key", awsKey);
+  console.log("aws secret", awsSecret);
+  console.log("aws bucket", awsBucket);
+
   const s3 = new AWS.S3();
   const { originalname, buffer } = req.file;
 
@@ -28,11 +32,11 @@ const handleAWSUpload = ({
       res
         .status(500)
         .json({ message: 'Error uploading file', error: err.message });
+    } else {
+      res
+        .status(201)
+        .json({ message: 'File Uploaded Successfully', data: result });
     }
-
-    res
-      .status(201)
-      .json({ message: 'File Uploaded Successfully', data: result });
   });
 };
 

@@ -2,7 +2,7 @@ const { handleAWSUpload } = require('../utils/aws/handleAwsUpload');
 require('dotenv').config();
 
 const {
-  AWS_ACCESS_KEY_ID,
+  AWS_ACCESS_KEY,
   AWS_ACCESS_SECRET_KEY,
   AWS_REGION,
   AWS_S3_BUCKET,
@@ -18,7 +18,7 @@ function fileUploadController(req, res) {
 
   if (apiKey && apiKey === API_KEY) {
     handleAWSUpload({
-      awsKey: AWS_ACCESS_KEY_ID,
+      awsKey: AWS_ACCESS_KEY,
       awsSecret: AWS_ACCESS_SECRET_KEY,
       awsRegion: AWS_REGION,
       awsBucket: AWS_S3_BUCKET,
