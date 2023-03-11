@@ -1,8 +1,40 @@
+const { handleAWSUpload } = require('../utils/aws/handleAwsUpload');
+require('dotenv').config();
 
+const {
+  AWS_ACCESS_KEY_ID,
+  AWS_ACCESS_SECRET_KEY,
+  AWS_REGION,
+  AWS_S3_BUCKET,
+  API_KEY,
+} = process.env;
 
 function fileUploadController(req, res) {
-  const message = 'File uploaded successfully';
-  res.status(200).json({ user: req.body, file: req.file, message });
+  const apiKey = req.get('API-KEY');
+  const awsKey = req.get('AWS_ACCESS_KEY_ID');
+  const awsSecret = req.get('AWS_ACCESS_SECRET_KEY');
+  const awsRegion = req.get('AWS_REGION');
+  const awsBucket = req.get('AWS_S3_BUCKET');
+
+  if (apiKey && apiKey === API_KEY) {
+    handleAWSUpload({
+      awsKey: AWS_ACCESS_KEY_ID,
+      awsSecret: AWS_ACCESS_SECRET_KEY,
+      awsRegion: AWS_REGION,
+      awsBucket: AWS_S3_BUCKET,
+      req,
+      res,
+    });
+  } else {
+    handleAWSUpload({
+      awsKey,
+      awsSecret,
+      awsRegion,
+      awsBucket,
+      req,
+      res,
+    });
+  }
 }
 
 module.exports = { fileUploadController };
