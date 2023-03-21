@@ -10,7 +10,7 @@ const {
 } = process.env;
 
 function fileUploadController(req, res) {
-  const apiKey = req.get('API-KEY');
+  const apiKey = req.get('X-API-KEY');
   const awsKey = req.get('AWS_ACCESS_KEY_ID');
   const awsSecret = req.get('AWS_ACCESS_SECRET_KEY');
   const awsRegion = req.get('AWS_REGION');

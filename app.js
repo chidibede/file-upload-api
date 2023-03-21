@@ -6,16 +6,17 @@ const usersRouter = require('./routes/users');
 const textToSpeechRouter = require('./routes/textToSpeech');
 
 const app = express();
-app.use(cors());
+app.use(
+  cors({
+    origin: '*',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    preflightContinue: true,
+    optionsSuccessStatus: 204,
+    allowedHeaders: ['Origin, X-Requested-With, Content-Type, Accept, API-KEY, api-key, AWS_ACCESS_KEY_ID, AWS_ACCESS_SECRET_KEY, AWS_REGION, AWS_S3_BUCKET']
+  })
+);
 app.use(express.json());
 
-app.use(function (req, res, next) {
-  res.header(
-    'Access-Control-Allow-Headers',
-    'Origin, X-Requested-With, Content-Type, Accept, API-KEY, AWS_ACCESS_KEY_ID, AWS_ACCESS_SECRET_KEY, AWS_REGION, AWS_S3_BUCKET'
-  );
-  next();
-});
 
 app.set('view engine', 'ejs');
 
@@ -24,7 +25,7 @@ app.get('/', (req, res) => {
 });
 
 app.use((req, res, next) => {
-  const apiKey = req.get('API-KEY');
+  const apiKey = req.get('X-API-KEY');
   const awsKey = req.get('AWS_ACCESS_KEY_ID');
   const awsSecret = req.get('AWS_ACCESS_SECRET_KEY');
   const awsRegion = req.get('AWS_REGION');
@@ -37,7 +38,7 @@ app.use((req, res, next) => {
       res.status(401).json({
         error: 'unauthorised',
         message:
-          'Either provide api key in the headers example (API-KEY: <your-api-key>) or provide your aws credentials in the request headers to upload to your s3 bucket. Required aws credentials are written below',
+          'Either provide api key in the headers example (X-API-KEY: <your-api-key>) or provide your aws credentials in the request headers to upload to your s3 bucket. Required aws credentials are written below',
         required_aws_credentials: [
           'AWS_ACCESS_KEY_ID',
           'AWS_ACCESS_SECRET_KEY',
