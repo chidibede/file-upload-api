@@ -3,9 +3,11 @@ const express = require('express');
 const cors = require('cors');
 const uploadRouter = require('./routes/files');
 const usersRouter = require('./routes/users');
+const textToSpeechRouter = require('./routes/textToSpeech');
 
 const app = express();
 app.use(cors());
+app.use(express.json());
 
 app.use(function (req, res, next) {
   res.header(
@@ -51,6 +53,6 @@ app.use((req, res, next) => {
 
 app.use('/', usersRouter);
 app.use('/', uploadRouter);
+app.use('/', textToSpeechRouter);
 
 module.exports = app;
-
